@@ -1,11 +1,16 @@
 //Create a function that will randomly reutrn "Rock", "Paper", or "Scissors"
 //Use the random function to get a random number from 0-2 (as there are three choices)
 //Assign each of these random numbers a choice (Rock, paper, scissors)
+
+//Global variables of the score that we will increment
+let humanScore = 0;
+let computerScore = 0;
+
+//Function that gets the computer's choice by generating a random number and that random number will equal a choice
 function getComputerChoice(choice){
     let computerChoice;
     let result;
     computerChoice = Math.floor(Math.random() * choice);
-    parseInt(computerChoice);
     if(computerChoice == 0){
         result = `Rock`;
     } 
@@ -19,35 +24,56 @@ function getComputerChoice(choice){
     return result;
 } 
 
-function getHumanChoice(choice){
+//Function that gets human choice and changes the user input to fix the string capitalization
+function getHumanChoice(){
     let result;
     result = prompt(`Please enter a choice: rock, paper, or scissors`)
     result = result.charAt(0).toUpperCase() + result.slice(1);
     return result;
 } 
 
+//Function that plays a game of rock-paper-scissors: compares the two inputs from player and robot and determines the score based off the inputs
 function playRound(humanChoice, computerChoice) {
     if(humanChoice == computerChoice) {
-        return console.log(`It's a tie!`);
+        console.log(`It's a tie!`);
     } 
     else if((humanChoice == `Rock` && computerChoice == `Scissors`) || (humanChoice == `Paper` && computerChoice == `Rock`) || (humanChoice == `Scissors` && computerChoice == `Paper`)){
         humanScore++;
-        return console.log(`You win!`);
+        console.log(`You win! ${humanChoice} beats ${computerChoice}! Computer score ${computerScore} - Human score ${humanScore}`);
     } 
     else{
-        computerScore++
-        return console.log(`You lose!`);
+        computerScore++;
+        console.log(`You lose! ${computerChoice} beats ${humanChoice}! Computer score ${computerScore} - Human score ${humanScore}`);
+    }
+
+}  
+
+
+// Main game function that loops playing the game for five rounds.
+function playGame() {
+    let rounds = 5; // Number of rounds
+    for (let i = 0; i < rounds; i++) {
+        let humanChoice = getHumanChoice();
+        let computerChoice = getComputerChoice(3);
+        (playRound(humanChoice, computerChoice));
+    }
+
+    // Final result
+    if (humanScore > computerScore) {
+        console.log(`You win the game! Final score: ${humanScore} - ${computerScore}`);
+    } else if (computerScore > humanScore) {
+        console.log(`Computer wins the game! Final score: ${computerScore} - ${humanScore}`);
+    } else {
+        console.log(`The game is a tie! Final score: ${humanScore} - ${computerScore}`);
     }
 }
 
-let humanScore = 0;
-let computeScore = 0;
-const humanSelection = getHumanChoice(); 
-const computerSelection = getComputerChoice(3);
+playGame();
 
 
 
-playRound(humanSelection, computerSelection);
 
-// console.log(getComputerChoice(3));
-// console.log(getHumanChoice());
+
+
+ 
+
